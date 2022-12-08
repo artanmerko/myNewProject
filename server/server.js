@@ -1,15 +1,18 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 8000;
 
-const cors = require('cors')
+require('./config/mongoose.config');    /* This is new */
+app.use(cors());
+app.use(express.json());
+/* This is new and allows JSON Objects to be posted */
 
-app.use(cors())
+app.use(express.urlencoded({ extended: true }));
+/* This is new and allows JSON Objects with strings and arrays*/
 
 require('./routes/person.routes')(app);
-// We're importing the routes export.
-/* These two lines are the long-hand notation of the above code, to better illustrate what's going on: */
-/* const personRoutes = require("./routes/person.routes"); */
-/* personRoutes(app); */
 
-app.listen(port,()=>console.log(`Listening on port: ${port}`))
+app.listen(port, () => {
+    console.log(`Listening on Port: ${port}`)
+})
