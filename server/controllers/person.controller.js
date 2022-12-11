@@ -21,12 +21,18 @@ module.exports.findOnePerson = (req, res) => {
     .catch(err=>res.json({message: 'Something went wrong', error: err}))
 }
 
+module.exports.updatePerson = (req, res) => {
+  Person.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
+    .then(updatedPerson => res.json(updatedPerson))
+    .catch(err=>res.json({message: 'Something went wrong', error: err}))
+}
+
 module.exports.createNewPerson = (req, res) => {
   Person.create(req.body)
     .then(person=>res.json(person))
     .catch(err=>res.json({message: 'Something went wrong', error: err}))
 }
-module.exports.removeOne = (req, res) => {
+module.exports.deletePerson = (req, res) => {
   Person.deleteOne({_id: req.params.id})
    .then(result=>res.json({result: result}))
    .catch(err=>res.json({message: 'Something went wrong', error: err}))

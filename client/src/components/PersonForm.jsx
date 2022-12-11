@@ -17,6 +17,8 @@ const PersonForm = (props) => {
         console.log(res);
         console.log(res.data);
         setPeople([...people, res.data])
+        setFirstName('');
+        setLastName('');
       })
       .catch( err => console.log(err) )
   }
